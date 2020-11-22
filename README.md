@@ -5,7 +5,7 @@
 > ❗ An Azure Computer Vision Resource and its key and endpoint is needed to run this application. Create a Computer Vision Resource here: https://portal.azure.com/#create/Microsoft.CognitiveServicesComputerVision.
 
 **Fig 1: Screenshot**
-![](Screenshots\01-preview.png)
+![](Screenshots/01-preview.png)
 
 **Fig 2: Card Front & Back**
-![](Screenshots\00-Card-Combined.jpg)
+![](Screenshots/00-Card-Combined.jpg)
