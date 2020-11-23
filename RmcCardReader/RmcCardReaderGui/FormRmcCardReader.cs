@@ -142,7 +142,7 @@ namespace RmcCardReaderGui {
                     return;
                 }
 
-
+                // Parse JSON result from Azure and get the lines array
                 var j = JToken.Parse(contentString);
                 var lines = j.SelectToken("analyzeResult.readResults[0].lines");
 
@@ -154,16 +154,19 @@ namespace RmcCardReaderGui {
                 var g = Graphics.FromImage(_imageWithOverlay);
                 g.SmoothingMode = SmoothingMode.AntiAlias;
 
-
+                // Iterate through all detected lines
                 foreach (var line in lines) {
                     var text = line.SelectToken("text").ToString();
                     var boundingBox = line.SelectToken("boundingBox").ToArray();
 
+                    // Draw a bounding box around the detected text
                     g.DrawLine(p, (int)boundingBox[0], (int)boundingBox[1], (int)boundingBox[2], (int)boundingBox[3]);
                     g.DrawLine(p, (int)boundingBox[2], (int)boundingBox[3], (int)boundingBox[4], (int)boundingBox[5]);
                     g.DrawLine(p, (int)boundingBox[4], (int)boundingBox[5], (int)boundingBox[6], (int)boundingBox[7]);
                     g.DrawLine(p, (int)boundingBox[6], (int)boundingBox[7], (int)boundingBox[0], (int)boundingBox[1]);
 
+                    // Do some rough cleanup of characters that are sometimes
+                    // recognized incorrectly
                     text = text.Replace('2', '0');
                     text = text.Replace('3', '0');
                     text = text.Replace('4', '0');
@@ -190,7 +193,6 @@ namespace RmcCardReaderGui {
 
                     if (!ValidateCharData(text)) continue;
 
-                    char c;
                     string s;
 
                     var lb = new StringBuilder();
@@ -220,10 +222,12 @@ namespace RmcCardReaderGui {
                         }
                     }
 
+                    // Draw the detected text inside the bounding box
                     g.DrawString(Encoding.UTF8.GetString(BitStringToBytes(lb.ToString())), f, b, (int)boundingBox[0], (int)boundingBox[1]);
                     sb.Append(lb);
                 }
 
+                // Update image with drawn overlay and other controls
                 PictureBoxCard.Image = _imageWithOverlay;
 
                 var textResult = Encoding.UTF8.GetString(BitStringToBytes(sb.ToString()));
