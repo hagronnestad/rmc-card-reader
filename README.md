@@ -6,6 +6,8 @@
 
 > ℹ An Azure Computer Vision Resource and its key and endpoint is needed to run this application. Create a Computer Vision Resource here: https://portal.azure.com/#create/Microsoft.CognitiveServicesComputerVision. There is a FREE tier available. 🤑
 
+> 📺 Watch a demo here: https://www.youtube.com/watch?v=rlWmiftXoDY
+
 **Fig 1: Screenshot**
 ![](Screenshots/01-preview.png)
 
